@@ -33,12 +33,13 @@ pcgl.prep(['scratch/NR_Data/'])
 n_exp = len(pcgl.experiment_list)
 
 # --- Function to create boot-strap data sets
+# MAJOR correction Oct 19 2020: Don't add correlations to MC data!
 # Inputs:  fName = name for simulation directory
 # Outputs: Creates directory for data set, sub-directories for each exp
 #          Save data files as "data.bin" in each subdirectory
 #          Copies simout.bin file
 #          Also saves a copy of PCGL code used in the same directory for archival purposes
-def BSGen(fName):
+def BSGen2(fName):
     
     #warning if fName is the same as the top directory for the real data
     if fName == pcgl.topdir:
@@ -76,7 +77,7 @@ def BSGen(fName):
         os.system('cp ' + pcgl.simfile_list[i_exp] + ' ' + pcgl.experiment_list[i_exp] + '/')
         
         #start new dictionary by copying original data file
-        dict_exp = pcgl.neutron_data[i_exp].copy()
+        dict_exp = copy.deepcopy(pcgl.neutron_data[i_exp])
         
         #change 'counts' key only if there's actually any data (only exception is pico2l_2013_ht)
         if pcgl.neutron_data[i_exp]['E_T'].size > 0:
@@ -87,11 +88,22 @@ def BSGen(fName):
                 #counts for this threshold
                 old_counts = pcgl.neutron_data[i_exp]['counts'][et]
                 
-                #create re-sampled counts vec
-                mult_vec = np.arange(1,pcgl.neutron_data[i_exp]['max_mult'][et]+1)
-                new_data = np.random.choice(a=mult_vec,p=old_counts/np.sum(old_counts),size=int(np.sum(old_counts)))
-                new_counts,toss = np.histogram(new_data,np.arange(1,pcgl.neutron_data[i_exp]['max_mult'][et]+2)-0.5)
-                new_counts = new_counts.astype(int32)                
+                #number of multiplicities
+                n_mult = len(old_counts)
+                
+                #for each mult, draw poisson number of counts for new data
+                new_counts = np.zeros(n_mult)
+                for i_mult in range(n_mult):
+                    new_counts[i_mult] = np.random.poisson(old_counts[i_mult])
+                    
+                #make sure they are integers
+                new_counts = new_counts.astype(int)
+                
+                print(pcgl.experiment_list[i_exp])
+                print(pcgl.neutron_data[i_exp]['E_T'][et])
+                print(new_counts)
+                print(pcgl.neutron_data[i_exp]['counts'])
+                print(' ')
                 
                 #replace in dictionary
                 if np.shape(old_counts) != np.shape(new_counts):
@@ -99,9 +111,9 @@ def BSGen(fName):
                     print(np.shape(old_counts))
                     print(np.shape(new_counts))
                     return 0
-                    
+                
                 dict_exp['counts'][et] = new_counts
-        
+                
         #save new data file
         sbc.DataHandling.WriteBinary.WriteBinaryNtupleFile(pcgl.experiment_list[i_exp] + '/data.bin',dict_exp)
         
