@@ -24,7 +24,8 @@ args = sys.argv
 from datetime import date
 import matplotlib.pyplot as plt
 import matplotlib
-np.random.seed(13453462)
+from scipy.stats import poisson
+np.random.seed(42)
 
 #prep PCGL code
 pcgl.prep(['scratch/NR_Data/'])
@@ -32,14 +33,40 @@ pcgl.prep(['scratch/NR_Data/'])
 # number of experiments
 n_exp = len(pcgl.experiment_list)
 
+# --- Function to generate random lambda for given counts
+# Inputs:  counts = # of events of Poisson process
+# Outputs: lambda = a randomly generated value of lambda
+def gen_lambda(counts):
+    
+    #decide range of lambda to consider
+    n = 10000
+    L_a = 0.
+    L_b = max(10.,3*counts)
+    
+    #vector of lambda values
+    L_vec = np.linspace(L_a,L_b,n)
+    
+    #calculate P(L)
+    P_vec = poisson.pmf(counts,L_vec)
+    
+    #noramlize
+    P_vec /= np.trapz(P_vec,L_vec)
+    
+    #draw random
+    L_draw = np.random.choice(L_vec,p = P_vec/np.sum(P_vec),size = 1)
+    
+    #Done! :)
+    return L_draw
+
 # --- Function to create boot-strap data sets
 # MAJOR correction Oct 19 2020: Don't add correlations to MC data!
+# Correction Oct 20 2020 to draw random lambda for each bin
 # Inputs:  fName = name for simulation directory
 # Outputs: Creates directory for data set, sub-directories for each exp
 #          Save data files as "data.bin" in each subdirectory
 #          Copies simout.bin file
 #          Also saves a copy of PCGL code used in the same directory for archival purposes
-def BSGen2(fName):
+def BSGen3(fName):
     
     #warning if fName is the same as the top directory for the real data
     if fName == pcgl.topdir:
@@ -66,7 +93,6 @@ def BSGen2(fName):
     
     # ----------------   Re-sampling   -------------------
     
-    
     #Loop over experiments
     for i_exp in range(n_exp):
         
@@ -92,18 +118,18 @@ def BSGen2(fName):
                 n_mult = len(old_counts)
                 
                 #for each mult, draw poisson number of counts for new data
+                #from poisson distribution with random lambda
                 new_counts = np.zeros(n_mult)
                 for i_mult in range(n_mult):
-                    new_counts[i_mult] = np.random.poisson(old_counts[i_mult])
+
+                    #Draw random lambda based on counts in real data
+                    L_draw = gen_lambda(old_counts[i_mult])                    
+                    
+                    #draw new random values
+                    new_counts[i_mult] = np.random.poisson(L_draw)
                     
                 #make sure they are integers
                 new_counts = new_counts.astype(int)
-                
-                print(pcgl.experiment_list[i_exp])
-                print(pcgl.neutron_data[i_exp]['E_T'][et])
-                print(new_counts)
-                print(pcgl.neutron_data[i_exp]['counts'])
-                print(' ')
                 
                 #replace in dictionary
                 if np.shape(old_counts) != np.shape(new_counts):
@@ -180,6 +206,36 @@ def makeGOFdata(diro):
     
     #Ambe
     rate.append(neutron_data[5]['counts'][0].astype(float)) #.ravel()/pcgl.neutron_data[5]['counts'][0][0])
+    
+    return rate
+    
+#code to get rates from real data set
+def makeGOFdata_RealData():
+        
+    #initialize
+    rate = []
+    
+    #91 keV
+    rate.append(pcgl.neutron_data[2]['counts'][0].astype(float)) #.ravel()/pcgl.neutron_data[2]['counts'][0][0])
+    rate.append(pcgl.neutron_data[0]['counts'][0].astype(float)) #.ravel()/pcgl.neutron_data[0]['counts'][0][0])
+    rate.append(pcgl.neutron_data[2]['counts'][1].astype(float)) #.ravel()/pcgl.neutron_data[2]['counts'][1][0])
+    
+    #61 keV
+    rate.append(pcgl.neutron_data[3]['counts'][0].astype(float)) #.ravel()/pcgl.neutron_data[3]['counts'][0][0])
+    rate.append(pcgl.neutron_data[1]['counts'][0].astype(float)) #.ravel()/pcgl.neutron_data[1]['counts'][0][0])
+    rate.append(pcgl.neutron_data[3]['counts'][1].astype(float)) #.ravel()/pcgl.neutron_data[3]['counts'][1][0])   
+
+    #50 keV
+    rate.append(pcgl.neutron_data[4]['counts'][0].astype(float)) #.ravel()/pcgl.neutron_data[4]['counts'][0][0])
+    rate.append(pcgl.neutron_data[4]['counts'][1].astype(float)) #.ravel()/pcgl.neutron_data[4]['counts'][1][0])
+    
+    #SbBe
+    rate.append(pcgl.neutron_data[7]['counts'][0][1:].astype(float)) #.ravel()/pcgl.neutron_data[7]['counts'][0][0])
+    rate.append(pcgl.neutron_data[7]['counts'][1][1:].astype(float)) #.ravel()/pcgl.neutron_data[7]['counts'][1][0])
+    rate.append(pcgl.neutron_data[7]['counts'][2][1:].astype(float)) #.ravel()/pcgl.neutron_data[7]['counts'][2][0])
+    
+    #Ambe
+    rate.append(pcgl.neutron_data[5]['counts'][0].astype(float)) #.ravel()/pcgl.neutron_data[5]['counts'][0][0])
     
     return rate
     
@@ -279,58 +335,12 @@ def pcgl_process(theta, i_exp, whichnuisance=np.ones(pcgl.n_nuisance, dtype=np.b
 
     return nu
 
-#Code to get BF model
-def makeGOFsim(LE,UE):
-    
-    SL = []
-    SU = []
-    
-    #91 kev
-    SL.append(pcgl_process(LE,2)[0])
-    SU.append(pcgl_process(UE,2)[0])
-    SL.append(pcgl_process(LE,0)[0])
-    SU.append(pcgl_process(UE,0)[0])
-    SL.append(pcgl_process(LE,2)[1])
-    SU.append(pcgl_process(UE,2)[1])
-    
-    #61 kev
-    SL.append(pcgl_process(LE,3)[0])
-    SU.append(pcgl_process(UE,3)[0])
-    SL.append(pcgl_process(LE,1)[0])
-    SU.append(pcgl_process(UE,1)[0])
-    SL.append(pcgl_process(LE,3)[1])
-    SU.append(pcgl_process(UE,3)[1])
-    
-    #50 kev
-    SL.append(pcgl_process(LE,4)[0])
-    SU.append(pcgl_process(UE,4)[0])
-    SL.append(pcgl_process(LE,4)[1])
-    SU.append(pcgl_process(UE,4)[1])
-    
-    #SbBe
-    SL.append(pcgl_process(LE,7)[0][1:])
-    SU.append(pcgl_process(UE,7)[0][1:])
-    SL.append(pcgl_process(LE,7)[1][1:])
-    SU.append(pcgl_process(UE,7)[1][1:])
-    SL.append(pcgl_process(LE,7)[2][1:])
-    SU.append(pcgl_process(UE,7)[2][1:])
-    
-    #AmBe
-    SL.append(pcgl_process(LE,5)[0])
-    SU.append(pcgl_process(UE,5)[0])
-        
-    return SU, SL
-
 #Code to make figure
 def makeGOFfig():
     
     #directories to look at 
-    expList = ['PICO_BS1','PICO_BS2','PICO_BS3','PICO_BS4','PICO_BS5']
-    #expList = ['PICO_BS6','PICO_BS7','PICO_BS8','PICO_BS9','PICO_BS10']
+    expList = ['PICO_BSC16','PICO_BSC17','PICO_BSC18','PICO_BSC19','PICO_BSC20']
     cols = ['tab:red','tab:blue','tab:green','tab:orange','tab:purple']    
-    
-    #fit results
-    #SU, SL = makeGOFsim(LE,UE)
     
     #x coordinates
     xc = np.array([1,2,3,6,7,8,11,12,13,16,17,18,21,22,23,26,27,28,31,32,33,36,37,38,41,42,45,46,49,50,53,54,55,56,57,58,59])
@@ -339,7 +349,7 @@ def makeGOFfig():
     fig1,ax = plt.subplots(figsize=(18,6))
     
     #Do this once with actual data for scaling
-    rateK = makeGOFdata(pcgl.topdir)
+    rateK = makeGOFdata_RealData()
 
     #fix everything
     so = []
@@ -374,7 +384,7 @@ def makeGOFfig():
     #loop over data sets
     for ide in range(len(expList)):
         
-        rate = makeGOFdata('PICO_BS/'+expList[ide])
+        rate = makeGOFdata('PICO_BSC/'+expList[ide])
 
         #fix everything
         Rerr = []
@@ -392,7 +402,7 @@ def makeGOFfig():
     
         plt.errorbar(xc+xcs[ide],R,yerr=Rerr,linewidth=0,elinewidth=0.6,color=cols[ide],
                      marker='o',markersize=2.3)
-
+    
     plt.axhline(y=820+14,linewidth=0.82,color='k')
     plt.axhline(y=820-14,linewidth=0.82,color='k')
     plt.yscale('log',nonposy='clip')
@@ -443,7 +453,7 @@ def makeGOFfig():
     plt.xlabel('Bubble Multiplicity',fontsize=14)
     plt.ylabel('Counts',fontsize=14)
     
-    fig1.savefig('BS_Data_Plot.png',dpi=500, bbox_inches='tight')
+    fig1.savefig('BSC_Data16-20_Plot.png',dpi=500, bbox_inches='tight')
     plt.show()
     
     #return su,sl
