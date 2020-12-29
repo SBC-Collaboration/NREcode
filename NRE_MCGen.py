@@ -13,7 +13,6 @@ can be directly used by PCGL / MCMC code
 
 # Import libraries
 import numpy as np
-#import PICOcalGlobalLikelihood_reparametrization_multi_v2 as pcgl
 import PICOcalGlobalLikelihood_reparametrization_multi_v2 as pcgl
 import SBCcode as sbc
 import os
@@ -22,6 +21,7 @@ args = sys.argv
 from datetime import date
 import matplotlib.pyplot as plt
 import matplotlib
+import copy
 np.random.seed(42)
 
 #prep PCGL code
@@ -108,7 +108,7 @@ def MCData(fName, theta, whichnuisance = np.ones(pcgl.n_nuisance, dtype=np.bool)
         os.system('cp ' + pcgl.simfile_list[i_exp] + ' ' + pcgl.experiment_list[i_exp] + '/')
         
         #start new dictionary by copying original data file
-        dict_exp = pcgl.neutron_data[i_exp].copy()
+        dict_exp = copy.deepcopy(pcgl.neutron_data[i_exp])
         
         #change 'counts' key only if there's actually any data (only exception is pico2l_2013_ht)
         if pcgl.neutron_data[i_exp]['E_T'].size > 0:
