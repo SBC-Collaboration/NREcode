@@ -399,6 +399,8 @@ for i_epoch in epoch_list:
     
     #----- reset and build starting array (re-seeding)
 
+        #----- reset and build starting array (re-seeding)
+
     # bin edges for horizontal FBI bins on WIMP parameters, with small offset
     bin_edges = np.unique(np.concatenate((np.linspace(maxL,maxL-1.,22),np.linspace(maxL-1.,maxL-4.,21)))[::-1]) + 0.025
     
@@ -418,6 +420,7 @@ for i_epoch in epoch_list:
         
         # initialize starting points
         epoch_starting_points = np.zeros(ndim)
+        starting_index = []
         
         # loop through (wimp) dimensions
         for i_dim in range(mDim):
@@ -435,13 +438,22 @@ for i_epoch in epoch_list:
                     point_a = np.argmin(wimp_samples_epoch[cut,i_dim])
                     point_b = np.argmax(wimp_samples_epoch[cut,i_dim])
                 
-                    # add to starting points
-                    epoch_starting_points = np.vstack((epoch_starting_points,samples_epoch[point_a,:]))
-                    epoch_starting_points = np.vstack((epoch_starting_points,samples_epoch[point_b,:]))
+                    # add to starting points if unique, otherwise add instance of initial guess to avoid too-few-walker error
+                    if point_a not in starting_index:
+                        starting_index.append(point_a)
+                        epoch_starting_points = np.vstack((epoch_starting_points,samples_epoch[point_a,:]))
+                    else:
+                        epoch_starting_points = np.vstack((epoch_starting_points,guess_theta+np.random.normal(0.,0.01,size = ndim)))
+                    if point_b not in starting_index:
+                        starting_index.append(point_b)
+                        epoch_starting_points = np.vstack((epoch_starting_points,samples_epoch[point_b,:]))
+                    else:
+                        epoch_starting_points = np.vstack((epoch_starting_points,guess_theta+np.random.normal(0.,0.001,size = ndim)))
 
-                # otherwise add one instance of initial guess to avoid too-few-walker error
+                # otherwise add two instances of initial guess to avoid too-few-walker error
                 else:
-                    epoch_starting_points = np.vstack((epoch_starting_points,guess_theta+np.random.normal(0.,0.001,size = ndim)))
+                    epoch_starting_points = np.vstack((epoch_starting_points,guess_theta+np.random.normal(0.,0.01,size = ndim)))
+                    epoch_starting_points = np.vstack((epoch_starting_points,guess_theta+np.random.normal(0.,0.01,size = ndim)))
                  
         # delete empty initialization row
         epoch_starting_points = np.delete(epoch_starting_points,0,axis=0)
