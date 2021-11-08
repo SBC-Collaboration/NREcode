@@ -653,7 +653,7 @@ def PoissonChisqWBkg(n, nu, k, r):
     b = n + k - nu * ((1 + r) / r)
     a = 1 + r
     mu = (b + np.sqrt(b * b + 4 * a * k * (nu / r))) / (2 * a)
-    mu[r == 0] = 0  # k ought to = 0 in this case as well
+    mu[r == 0] = k[r == 0]  # special case -- known background
     chisq_0 = 2 * (nu + mu + mu * r - n - k)
     chisq_1 = -2 * n * np.log((nu + mu * r) / n)
     chisq_1[np.isnan(chisq_1)] = 0
