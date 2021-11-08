@@ -642,3 +642,26 @@ def PoissonChisq(n, nu):
 def PoissonChi(n, nu):
     ''' Calculates signed sqrt of Poisson chi-square '''
     return np.sqrt(PoissonChisq(n, nu)) * np.sign(nu - n)
+
+
+def PoissonChisqWBkg(n, nu, k, r):
+    ''' Calculates Poisson chi-square with bkg dataset
+        n = # of events observed in "signal" dataset
+        nu = # of signal events expected
+        k = # of events observed in "background" dataset
+        r = exposure of "signal" dataset relative to "background" '''
+    b = n + k - nu * ((1 + r) / r)
+    a = 1 + r
+    mu = (b + np.sqrt(b * b + 4 * a * k * (nu / r))) / (2 * a)
+    mu[r == 0] = 0  # k ought to = 0 in this case as well
+    chisq_0 = 2 * (nu + mu + mu * r - n - k)
+    chisq_1 = -2 * n * np.log((nu + mu * r) / n)
+    chisq_1[np.isnan(chisq_1)] = 0
+    chisq_2 = -2 * k * np.log(mu / k)
+    chisq_2[np.isnan(chisq_2)] = 0
+    return chisq_0 + chisq_1 + chisq_2
+
+
+def PoissonChiWBkg(n, nu, k, r):
+    ''' Calculates signed sqrt of Poisson chi-square w bkg '''
+    return np.sqrt(PoissonChisqWBkg(n, nu, k, r)) * np.sign(nu - n + k * r)
