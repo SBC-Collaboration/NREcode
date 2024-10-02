@@ -242,8 +242,8 @@ def wimp_treat(theta,mass_index,int_type):
     # extract C and F points at both thresholds
     C_245 = thetaT[::4]
     F_245 = thetaT[1::4]
-    C_329 = thetaT[2::4]*(3.29/3.)
-    F_329 = thetaT[3::4]*(3.29/3.)
+    C_329 = thetaT[2::4]*(3.29/3.2)
+    F_329 = thetaT[3::4]*(3.29/3.2)
     
     # create interpolation of efficiency curves
     C_interp_245 = np.interp(1.0 + np.arange(0,bin_length*bin_width,bin_width) ,C_245,[0, .2, .5, .8, 1.0])
