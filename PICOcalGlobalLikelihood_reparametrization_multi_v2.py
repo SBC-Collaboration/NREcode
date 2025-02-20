@@ -82,6 +82,7 @@ def prep(topdir_searchlocations):
             break
     # now load the simulation outputs
     simfile_list = [os.path.join(topdir, 'simout.bin')]
+    print(simfile_list)
     #simfile_list = [os.path.join(topdir, exp, 'simout.bin')
     #                for exp in experiment_list] # original
     neutron_sims = [sbc.read_bin(simfile) for simfile in simfile_list]
