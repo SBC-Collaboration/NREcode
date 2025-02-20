@@ -24,12 +24,12 @@ dirName = '/home/runze/Documents/analysis/emcee_inputdata/XeBC_productionruns/'
 Period = '6'
 
 #----- Archive everything
-
+'''
 os.system('cp XeNR_Wrapper.py '+dirName+'/')
 os.system('cp run_XeNR_FBI.sh '+dirName+'/')	#bash script for compute canada
 os.system('cp XeSBC_GlobalLikelihood_reparametrization_multi_v2.py '+dirName+'/')
 os.system('cp XeSBC_runMCMC.py '+dirName+'/')
-
+'''
 # ---- Stage 1
 period = Period+'a'
 epoch_steps = 5
