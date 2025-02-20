@@ -43,24 +43,24 @@ n_Epts = p_fenceposts.size * threshold_fenceposts.size * species_list.size
 # now define our experiment list
 # for PICO NR study, it was 2013_97, 2013_61, 2014_97, 2014_61, 2014_50, 
 #   pico2l_2013_lt, pico2l_2013_ht, and SbBe4_2inPb
-# experiment_list = ['2013_97',
-#                    '2013_61',
-#                    # '2013_40',
-#                    '2014_97',
-#                    '2014_61',
-#                    '2014_50',
-#                    #'2014_34',
-#                    'pico2l_2013_lt',
-#                    'pico2l_2013_ht',
-#                    # 'pico2l_2015',
-#                    # 'SbBe1',
-#                    # 'SbBe4',
-#                    # 'SbBe4_1inPb',
-#                    'SbBe4_2inPb',
-#                    #'pico60_Cf_run15',
-#                    ]
+experiment_list = ['2013_97',
+                   '2013_61',
+                   # '2013_40',
+                   '2014_97',
+                   '2014_61',
+                   '2014_50',
+                   #'2014_34',
+                   'pico2l_2013_lt',
+                   'pico2l_2013_ht',
+                   # 'pico2l_2015',
+                   # 'SbBe1',
+                   # 'SbBe4',
+                   # 'SbBe4_1inPb',
+                   'SbBe4_2inPb',
+                   #'pico60_Cf_run15',
+                   ]
 
-experiment_list = ["/"]
+
                    
 #default # of nuisance parameters
 n_nuisance = 14
