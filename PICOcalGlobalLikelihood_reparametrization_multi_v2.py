@@ -60,7 +60,7 @@ n_Epts = p_fenceposts.size * threshold_fenceposts.size * species_list.size
 #                    #'pico60_Cf_run15',
 #                    ]
 
-experiment_list = []
+experiment_list = ["/"]
                    
 #default # of nuisance parameters
 n_nuisance = 14
