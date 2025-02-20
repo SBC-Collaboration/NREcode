@@ -19,7 +19,7 @@ import os
 import gc
 
 # ------ Specify data set
-dirName = '/home/runze/Documents/analysis/emcee_inputdata/tree/main/XeBC_productionruns/BiBe'
+dirName = '/home/runze/Documents/analysis/emcee_inputdata/XeBC_productionruns/BiBe'
 # dirName = 'PICO_MC1'
 Period = '36'
 
