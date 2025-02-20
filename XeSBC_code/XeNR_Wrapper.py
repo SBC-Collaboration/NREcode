@@ -19,8 +19,8 @@ import os
 import gc
 
 # ------ Specify data set
-
-dirName = 'XeNR_Data'
+dirName = '/home/runze/Documents/analysis/emcee_inputdata/XeBC_productionruns/'
+# dirName = 'XeNR_Data'
 Period = '6'
 
 #----- Archive everything
@@ -29,7 +29,7 @@ os.system('cp XeNR_Wrapper.py '+dirName+'/')
 os.system('cp run_XeNR_FBI.sh '+dirName+'/')	#bash script for compute canada
 os.system('cp XeSBC_GlobalLikelihood_reparametrization_multi_v2.py '+dirName+'/')
 os.system('cp XeSBC_runMCMC.py '+dirName+'/')
-'''
+
 # ---- Stage 1
 period = Period+'a'
 epoch_steps = 5
@@ -38,7 +38,7 @@ step_size = 1.8
 chi2_cap = 1e20
 
 # Launch code
-os.system('python3 XeSBC_runMCMC.py ' + dirName + ' ' + str(period) + ' ' + str(epoch_steps) + ' ' + 
+os.system('python XeSBC_runMCMC.py ' + dirName + ' ' + str(period) + ' ' + str(epoch_steps) + ' ' +
           str(bin_number) + ' ' + str(step_size) + ' ' + str(chi2_cap))
 '''          
 # ---- Stage 2
@@ -66,3 +66,4 @@ print(period)
 # Launch code
 os.system('python3.8 XeSBC_runMCMC.py ' + dirName + ' ' + str(period) + ' ' + str(epoch_steps) + ' ' +
           str(bin_number) + ' ' + str(step_size) + ' ' + str(chi2_cap))
+'''
