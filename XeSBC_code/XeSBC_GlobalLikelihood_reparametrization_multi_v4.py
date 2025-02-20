@@ -3,7 +3,7 @@ import numpy as np
 import SBCcode as sbc
 import os
 import warnings
-from matplotlib.tri.triinterpolate import LinearTriInterpolator
+from matplotlib.tri import LinearTriInterpolator
 from matplotlib.tri import Triangulation
 
 ''' DDurnford, Jan 2022
