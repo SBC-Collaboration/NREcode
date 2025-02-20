@@ -25,10 +25,10 @@ Period = '36'
 
 #----- Archive everything
 
-os.system('cp NRE_Wrapper.py '+dirName+'/')
-os.system('cp run_mcmc.sh '+dirName+'/')	#bash script for compute canada
-os.system('cp PICOcalGlobalLikelihood_reparametrization_multi_v2.py '+dirName+'/')
-os.system('cp NRE_runMCMC.py '+dirName+'/')
+# os.system('cp NRE_Wrapper.py '+dirName+'/')
+# os.system('cp run_mcmc.sh '+dirName+'/')	#bash script for compute canada
+# os.system('cp PICOcalGlobalLikelihood_reparametrization_multi_v2.py '+dirName+'/')
+# os.system('cp NRE_runMCMC.py '+dirName+'/')
 
 # ---- Stage 1
 period = Period+'a'
