@@ -38,7 +38,7 @@ step_size = 2.
 chi2_cap = 1e20
 
 # Launch code
-os.system('python3.5 NRE_runMCMC.py ' + dirName + ' ' + str(period) + ' ' + str(epoch_steps) + ' ' + 
+os.system('python NRE_runMCMC.py ' + dirName + ' ' + str(period) + ' ' + str(epoch_steps) + ' ' +
           str(bin_number) + ' ' + str(step_size) + ' ' + str(chi2_cap))
 """        
 # ---- Stage 2
