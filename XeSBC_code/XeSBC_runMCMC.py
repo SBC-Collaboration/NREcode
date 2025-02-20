@@ -21,7 +21,7 @@ Inputs are (in order):
 import emcee
 import numpy as np
 import XeSBC_GlobalLikelihood_reparametrization_multi_v4 as xegl
-from matplotlib.tri.triinterpolate import LinearTriInterpolator
+from matplotlib.tri import LinearTriInterpolator
 from matplotlib.tri import Triangulation
 import os
 os.environ["OMP_NUM_THREADS"] = "1"
