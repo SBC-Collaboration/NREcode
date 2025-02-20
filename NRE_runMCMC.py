@@ -230,8 +230,8 @@ for i_epoch in epoch_list:
     samples_epoch = sampler.get_chain(flat = True)
     log_prob_epoch = sampler.get_log_prob(flat = True)
 
-    print(samples_epoch,'\n',samples)
-    
+    print("comparasion",samples_epoch,'\n',samples)
+
     samples = np.concatenate((samples,samples_epoch))
     log_prob = np.concatenate((log_prob,log_prob_epoch))
 
