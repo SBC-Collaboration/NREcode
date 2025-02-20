@@ -43,22 +43,24 @@ n_Epts = p_fenceposts.size * threshold_fenceposts.size * species_list.size
 # now define our experiment list
 # for PICO NR study, it was 2013_97, 2013_61, 2014_97, 2014_61, 2014_50, 
 #   pico2l_2013_lt, pico2l_2013_ht, and SbBe4_2inPb
-experiment_list = ['2013_97',
-                   '2013_61',
-                   # '2013_40',
-                   '2014_97',
-                   '2014_61',
-                   '2014_50',
-                   #'2014_34',
-                   'pico2l_2013_lt',
-                   'pico2l_2013_ht',
-                   # 'pico2l_2015',
-                   # 'SbBe1',
-                   # 'SbBe4',
-                   # 'SbBe4_1inPb',
-                   'SbBe4_2inPb',
-                   #'pico60_Cf_run15',
-                   ]
+# experiment_list = ['2013_97',
+#                    '2013_61',
+#                    # '2013_40',
+#                    '2014_97',
+#                    '2014_61',
+#                    '2014_50',
+#                    #'2014_34',
+#                    'pico2l_2013_lt',
+#                    'pico2l_2013_ht',
+#                    # 'pico2l_2015',
+#                    # 'SbBe1',
+#                    # 'SbBe4',
+#                    # 'SbBe4_1inPb',
+#                    'SbBe4_2inPb',
+#                    #'pico60_Cf_run15',
+#                    ]
+
+experiment_list = []
                    
 #default # of nuisance parameters
 n_nuisance = 14
@@ -81,10 +83,8 @@ def prep(topdir_searchlocations):
         if os.path.isdir(topdir):
             break
     # now load the simulation outputs
-    simfile_list = [os.path.join(topdir, 'simout.bin')]
-    print(simfile_list)
-    #simfile_list = [os.path.join(topdir, exp, 'simout.bin')
-    #                for exp in experiment_list] # original
+    simfile_list = [os.path.join(topdir, exp, 'simout.bin')
+                   for exp in experiment_list]
     neutron_sims = [sbc.read_bin(simfile) for simfile in simfile_list]
     # neutron_sims is now a list of dictionaries, each dictionary
     # with fields id(n), pos(n,3), Er(n), and species(n)
