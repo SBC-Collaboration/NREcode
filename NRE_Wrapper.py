@@ -17,6 +17,7 @@ Instructions:
 import numpy as np
 import os
 import gc
+import SBCcode
 
 # ------ Specify data set
 dirName = '/home/runze/Documents/analysis/emcee_inputdata/XeBC_productionruns/BiBe'
