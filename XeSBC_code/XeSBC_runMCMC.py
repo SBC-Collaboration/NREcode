@@ -107,7 +107,7 @@ print('------ Period ' + Period + ' ------')
 xegl.prep([topdir])
 
 # storage directory for MCMC
-storeDir = 'Epoch_storage'
+storeDir = '/home/runze/Documents/results/Epoch_storage'
 
 # MCMC parameters
 epoch_nstep = int(args[3])     # how many steps per epoch (5 for rough, 10 for fine)
