@@ -58,7 +58,6 @@ ndim = 5*num_threshold + dim_nuisance
 # Guess from Period 0 mcmc run
 guess_theta = np.array([ 0.12530298,  1.59249128, -1.01141287,  0.11066013, -0.42281489,-1.96481931, -1.35529153, -1.45358755, 0.86736413, -3.86214427,-0.02433887,  0.18126786, -0.02606193, -0.16020627,  0.3269579 ])
 
-print("len",ndim, len(guess_theta))
 
 #-------- Volume calculation
       
