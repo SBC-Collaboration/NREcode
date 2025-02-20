@@ -1,1 +1,1 @@
-from SBC_analysis import *
+import SBC_analysis as sbc
