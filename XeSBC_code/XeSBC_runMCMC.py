@@ -77,7 +77,7 @@ def calcVol2(S,L):
 
     #initialize
     v = 0.
-    # print("L contents:", L)
+    print("L contents:", L)
     #main loop
     for i in range(ndim):
         
