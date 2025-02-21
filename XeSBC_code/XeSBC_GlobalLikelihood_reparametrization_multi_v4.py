@@ -52,7 +52,7 @@ n_Epts = p_fenceposts.size * threshold_fenceposts.size * species_list.size
 experiment_list = ['Cf-252','BiBe','YBe']
                    
 #default # of nuisance parameters
-n_nuisance = 5
+n_nuisance = 4
 
 # Load and prepare data and simulation
 def prep(topdir_searchlocations):
