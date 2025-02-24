@@ -229,7 +229,7 @@ def XeSBCcal_post(theta, whichnuisance=np.ones(n_nuisance, dtype=np.bool)):
         
         # expected number of counts 
         nu = SimulatedCounts_2Dmesh(Epts, eb, i_exp,eb_1sig)
-        print("Error2",Epts, eb, i_exp, eb_1sig)
+        # print("Error2",Epts, eb, i_exp, eb_1sig)
         # nu.shape = neutron_Data[i_exp]['counts'].shape = (m, k)
 
         #calculate chi2, looping over multiplicity
@@ -431,7 +431,7 @@ def SimulatedCounts_2Dmesh(Epts, eb, i_exp, eb_1sig):
 
         output:  nu, size given by neutron_data[i_exp]['counts']
         '''
-
+    print("Error2", Epts, eb, i_exp, eb_1sig)
     #from IPython.core.debugger import Tracer; Tracer()() 
     
     exp_rescale = np.sum(neutron_data[i_exp]['nuisance'][:, 0, :, :] *
