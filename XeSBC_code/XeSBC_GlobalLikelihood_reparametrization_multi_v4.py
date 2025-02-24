@@ -523,6 +523,7 @@ def SimulatedCounts_2Dmesh(Epts, eb, i_exp, eb_1sig):
                        np.exp(exp_rescale) *
                        neutron_data[i_exp]['exp'][:, np.newaxis] *
                        trials_rescale)
+    print("nu",nu)
     return nu
 
 def EfficiencyInterpolation(E_r, s, E_T, xpts):
