@@ -229,6 +229,7 @@ def XeSBCcal_post(theta, whichnuisance=np.ones(n_nuisance, dtype=np.bool)):
         
         # expected number of counts 
         nu = SimulatedCounts_2Dmesh(Epts, eb, i_exp,eb_1sig)
+        print("Error2",Epts, eb, i_exp, eb_1sig)
         # nu.shape = neutron_Data[i_exp]['counts'].shape = (m, k)
 
         #calculate chi2, looping over multiplicity
