@@ -431,7 +431,7 @@ def SimulatedCounts_2Dmesh(Epts, eb, i_exp, eb_1sig):
 
         output:  nu, size given by neutron_data[i_exp]['counts']
         '''
-    print("Error2", Epts, eb, i_exp, eb_1sig)
+    print("Error2", "Epts",Epts, "eb",eb, "iexp",i_exp, "eb_1sig",eb_1sig)
     #from IPython.core.debugger import Tracer; Tracer()() 
     
     exp_rescale = np.sum(neutron_data[i_exp]['nuisance'][:, 0, :, :] *
@@ -523,7 +523,7 @@ def SimulatedCounts_2Dmesh(Epts, eb, i_exp, eb_1sig):
                        np.exp(exp_rescale) *
                        neutron_data[i_exp]['exp'][:, np.newaxis] *
                        trials_rescale)
-    print("nu",nu)
+    # print("nu",nu)
     return nu
 
 def EfficiencyInterpolation(E_r, s, E_T, xpts):
