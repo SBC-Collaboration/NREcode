@@ -104,7 +104,7 @@ def prep(topdir_searchlocations):
     datafile_list = [os.path.join(topdir, exp, 'data.bin')
                      for exp in experiment_list]
     neutron_data = [sbc.read_bin(datafile) for datafile in datafile_list]
-    print("data",datafile_list, "neu", neutron_data)
+    # print("data",datafile_list, "neu", neutron_data)
     # strip off extra dimension that appeared - DDurnford Nov 2021
     for nd in neutron_data:
         for key in nd:
@@ -127,6 +127,7 @@ def prep(topdir_searchlocations):
         print('Inconsistent numbers of nusicance parameters between experiments')
 
     n_nuisance = n_nuisance_all[0]
+    print("nui", n_nuisance)
     
 	## /-/-/-/-/-/ Under construction /-/-/-/-/-/
 
