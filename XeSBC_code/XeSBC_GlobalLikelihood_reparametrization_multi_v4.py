@@ -72,6 +72,7 @@ def prep(topdir_searchlocations):
 
     for topdir in topdir_searchlocations:
         if os.path.isdir(topdir):
+            print(topdir)
             break
     # now load the simulation outputs
     simfile_list = [os.path.join(topdir, exp, 'simout.bin')
