@@ -451,11 +451,11 @@ def SimulatedCounts_2Dmesh(Epts, eb, i_exp, eb_1sig):
 
     ET_eff = neutron_data[i_exp]['E_T'] * np.exp(thr_rescale[:, 0])
     # ET_eff.shape = (m,)
-    print("node1")
+
     p = EfficiencyInterpolation_2Dmesh(neutron_sims[i_exp]['Er'],
                                 neutron_sims[i_exp]['species'],
                                 ET_eff, Epts)
-    print("node2")
+    print("node1")
     # p.shape = (m, n), where n is number of recoils in sim
 
     bubbles = neutron_sims[i_exp]['hiddenvars'][:, 1:] < p[:, :, np.newaxis]
@@ -474,7 +474,7 @@ def SimulatedCounts_2Dmesh(Epts, eb, i_exp, eb_1sig):
     ev_posts = np.zeros(ev_midposts.size + 2, dtype=np.intp)
     ev_posts[1:-1] = ev_midposts + 1
     ev_posts[-1] = neutron_sims[i_exp]['id'].size
-    
+    print("node2")
     bubcount = np.zeros((bubbles.shape[0],
                          bubbles.shape[1] + 1,
                          bubbles.shape[2]),
@@ -500,6 +500,7 @@ def SimulatedCounts_2Dmesh(Epts, eb, i_exp, eb_1sig):
     infid = np.diff(fidcount[:, ev_posts, :], axis=1) > 0
     singles_out_of_fid = (nbub == 1) * (~infid)
     nbub[singles_out_of_fid] = 0
+    print("node3")
     # now we have nbub all set
     # with nbub.shape = (m, i, t) where i is number of neutrons
     
@@ -528,6 +529,7 @@ def SimulatedCounts_2Dmesh(Epts, eb, i_exp, eb_1sig):
                        np.exp(exp_rescale) *
                        neutron_data[i_exp]['exp'][:, np.newaxis] *
                        trials_rescale)
+    print("node4")
     # print("nu",nu)
     return nu
 
