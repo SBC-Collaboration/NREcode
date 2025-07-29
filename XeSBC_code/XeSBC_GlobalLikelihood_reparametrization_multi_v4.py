@@ -78,7 +78,7 @@ def prep(topdir_searchlocations):
     simfile_list = [os.path.join(topdir, exp, 'simout.bin')
                     for exp in experiment_list]
     neutron_sims = [sbc.read_bin(simfile) for simfile in simfile_list]
-    print("sim", simfile_list, "neu", neutron_sims)
+    # print("sim", simfile_list, "neu", neutron_sims)
     # neutron_sims is now a list of dictionaries, each dictionary
     # with fields id(n), pos(n,3), Er(n), and species(n)
     
@@ -104,7 +104,7 @@ def prep(topdir_searchlocations):
     datafile_list = [os.path.join(topdir, exp, 'data.bin')
                      for exp in experiment_list]
     neutron_data = [sbc.read_bin(datafile) for datafile in datafile_list]
-    
+    print("data",datafile_list, "neu", neutron_data)
     # strip off extra dimension that appeared - DDurnford Nov 2021
     for nd in neutron_data:
         for key in nd:
