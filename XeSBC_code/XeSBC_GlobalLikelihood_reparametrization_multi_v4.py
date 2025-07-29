@@ -127,7 +127,7 @@ def prep(topdir_searchlocations):
         print('Inconsistent numbers of nusicance parameters between experiments')
 
     n_nuisance = n_nuisance_all[0]
-    print("nui", n_nuisance)
+    # print("nui", n_nuisance)
     
 	## /-/-/-/-/-/ Under construction /-/-/-/-/-/
 
@@ -225,6 +225,7 @@ def XeSBCcal_post(theta, whichnuisance=np.ones(n_nuisance, dtype=np.bool)):
 
     # loop over experiments
     for i_exp in range(len(experiment_list)):
+        print("exp list", i_exp)
 
         # In the case experiment has no data that, skip
         if neutron_data[i_exp]['E_T'].size == 0:
