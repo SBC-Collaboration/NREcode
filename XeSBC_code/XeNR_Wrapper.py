@@ -19,7 +19,7 @@ import os
 import gc
 
 # ------ Specify data set
-dirName = '/home/runze/Documents/analysis/emcee_inputdata/XeBC_productionruns/'
+dirName = '/home/runze/Documents/analysis/emcee_inputdata/XeBC_productionruns'
 # dirName = 'XeNR_Data'
 Period = '1'
 
