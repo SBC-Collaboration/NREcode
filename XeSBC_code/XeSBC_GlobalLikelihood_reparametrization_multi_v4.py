@@ -72,12 +72,13 @@ def prep(topdir_searchlocations):
 
     for topdir in topdir_searchlocations:
         if os.path.isdir(topdir):
-            print(topdir)
+            print("topdir",topdir)
             break
     # now load the simulation outputs
     simfile_list = [os.path.join(topdir, exp, 'simout.bin')
                     for exp in experiment_list]
     neutron_sims = [sbc.read_bin(simfile) for simfile in simfile_list]
+    print("sim", simfile_list, "neu", neutron_sims)
     # neutron_sims is now a list of dictionaries, each dictionary
     # with fields id(n), pos(n,3), Er(n), and species(n)
     
