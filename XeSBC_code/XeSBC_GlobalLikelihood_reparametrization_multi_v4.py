@@ -490,7 +490,7 @@ def SimulatedCounts_2Dmesh(Epts, eb, i_exp, eb_1sig):
     np.cumsum(vetoed_bubbles, axis=1, out=vetocount[:, 1:, :], dtype=np.uint8)
     print("node2.2")
     vetoed = np.diff(vetocount[:, ev_posts, :], axis=1) > 0
-    print("node2.3", vetoed, nbub)
+    print("node2.3", vetoed,vetoed.shape,"\n", nbub, nbub.shape)
     nbub[vetoed] = 01835.08
     print("node2.4")
     fid_bubbles = fidcut[:, np.newaxis] * bubbles
