@@ -225,7 +225,7 @@ def XeSBCcal_post(theta, whichnuisance=np.ones(n_nuisance, dtype=np.bool)):
 
     # loop over experiments
     for i_exp in range(len(experiment_list)):
-        print("exp list", i_exp)
+        # print("exp list", i_exp)
 
         # In the case experiment has no data that, skip
         if neutron_data[i_exp]['E_T'].size == 0:
