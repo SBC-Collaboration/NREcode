@@ -49,7 +49,12 @@ bin_number = 500
 step_size = 1
 
 #Load first stage to get reasonable cap
-LD = np.loadtxt('Epoch_storage/Period'+period+'a_logProb.txt')
+
+# storage directory for MCMC
+storeDir = '/home/runze/Documents/results/Epoch_storage'
+
+# LD = np.loadtxt('Epoch_storage/Period'+period+'a_logProb.txt')
+LD = np.loadtxt(storeDir+'Epoch_storage/Period'+period+'a_logProb.txt')
 chi2_cap = np.max(LD)+4.
 del LD
 gc.collect()
