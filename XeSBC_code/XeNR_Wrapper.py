@@ -51,7 +51,7 @@ step_size = 1
 #Load first stage to get reasonable cap
 
 # storage directory for MCMC
-storeDir = '/home/runze/Documents/results/Epoch_storage'
+storeDir = '/home/runze/Documents/results/'
 
 # LD = np.loadtxt('Epoch_storage/Period'+period+'a_logProb.txt')
 LD = np.loadtxt(storeDir+'Epoch_storage/Period'+period+'a_logProb.txt')
