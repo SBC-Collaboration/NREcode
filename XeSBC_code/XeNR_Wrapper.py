@@ -21,7 +21,7 @@ import gc
 # ------ Specify data set
 dirName = '/home/runze/Documents/analysis/emcee_inputdata/XeBC_productionruns'
 # dirName = 'XeNR_Data'
-Period = '5'
+Period = '2'
 
 #----- Archive everything
 '''
@@ -30,7 +30,7 @@ os.system('cp run_XeNR_FBI.sh '+dirName+'/')	#bash script for compute canada
 os.system('cp XeSBC_GlobalLikelihood_reparametrization_multi_v2.py '+dirName+'/')
 os.system('cp XeSBC_runMCMC.py '+dirName+'/')
 '''
-'''# ---- Stage 1
+# ---- Stage 1
 period = Period+'a'
 epoch_steps = 5
 bin_number = 200
@@ -39,10 +39,10 @@ chi2_cap = 1e20
 
 # Launch code
 os.system('python XeSBC_runMCMC.py ' + dirName + ' ' + str(period) + ' ' + str(epoch_steps) + ' ' +
-          str(bin_number) + ' ' + str(step_size) + ' ' + str(chi2_cap))'''
+          str(bin_number) + ' ' + str(step_size) + ' ' + str(chi2_cap))
 
 # ---- Stage 2
-
+'''
 period = Period
 epoch_steps = 10
 bin_number = 500
@@ -73,3 +73,4 @@ print(period)
 #           str(bin_number) + ' ' + str(step_size) + ' ' + str(chi2_cap))
 os.system('python XeSBC_runMCMC.py ' + dirName + ' ' + str(period) + ' ' + str(epoch_steps) + ' ' +
           str(bin_number) + ' ' + str(step_size) + ' ' + str(chi2_cap))
+          '''
