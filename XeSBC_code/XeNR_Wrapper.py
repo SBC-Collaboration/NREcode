@@ -21,7 +21,7 @@ import gc
 # ------ Specify data set
 dirName = '/home/runze/Documents/analysis/emcee_inputdata/XeBC_productionruns'
 # dirName = 'XeNR_Data'
-Period = '2'
+Period = '3'
 
 #----- Archive everything
 '''
