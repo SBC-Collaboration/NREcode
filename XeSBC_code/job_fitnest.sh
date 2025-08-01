@@ -3,7 +3,7 @@
 #SBATCH --array=1
 #SBATCH --account=def-kenclark-ab                                                                                                                                             
 #SBATCH --ntasks-per-node=1
-#SBATCH --cpus-per-task=2
+
 #SBATCH --mem=1GB
 
 #module load python
