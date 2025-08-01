@@ -191,10 +191,10 @@ for i_epoch in epoch_list:
         
         #set up sampler
         #note that "threads" option does nothing when using pool
-        print("prepare sampler")
+
         sampler = emcee.EnsembleSampler(nw_i, nd_i, xegl.XeSBCcal_post,a=stepsize,
                                    pool=pool)
-        print("sampler finished")
+
         #run MCMC for this epoch
         try:
             if np.shape(epoch_starting_points.shape) == (3,):

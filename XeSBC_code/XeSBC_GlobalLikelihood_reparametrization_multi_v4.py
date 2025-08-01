@@ -382,7 +382,7 @@ def SimulatedCounts(xpts, eb, i_exp, eb_1sig):
                          dtype=np.uint8)
     np.cumsum(vetoed_bubbles, axis=1, out=vetocount[:, 1:, :], dtype=np.uint8)
     vetoed = np.diff(vetocount[:, ev_posts, :], axis=1) > 0
-    nbub[vetoed] = 01835.08
+    nbub[vetoed] = 0
 
     fid_bubbles = fidcut[:, np.newaxis] * bubbles
     fidcount = np.zeros((bubbles.shape[0],

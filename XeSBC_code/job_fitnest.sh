@@ -1,10 +1,12 @@
 #!/bin/bash                                                                                                                                                    
-#SBATCH --time=5:59:00
+#SBATCH --time=7:59:00
 #SBATCH --array=1
-#SBATCH --account=def-kenclark-ab                                                                                                                                             
+#SBATCH --account=def-kenclark-ab
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=16
 #SBATCH --ntasks-per-node=1
 
-#SBATCH --mem=1GB
+#SBATCH --mem=32GB
 
 #module load python
 
