@@ -68,10 +68,11 @@ gc.collect()
 
 period = Period + 'b'
 print(period)
+print(chi2_cap)
 
 # Launch code
 # os.system('python3.8 XeSBC_runMCMC.py ' + dirName + ' ' + str(period) + ' ' + str(epoch_steps) + ' ' +
 #           str(bin_number) + ' ' + str(step_size) + ' ' + str(chi2_cap))
 os.system('python XeSBC_runMCMC.py ' + dirName + ' ' + str(period) + ' ' + str(epoch_steps) + ' ' +
           str(bin_number) + ' ' + str(step_size) + ' ' + str(chi2_cap))
-          
+
